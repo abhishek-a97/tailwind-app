@@ -6,7 +6,7 @@ import Models from './Models';
 import Validates from './MUI/Validates';
 import ConfirmationDialog from './MuiModal';
 
-const people = [
+const employee = [
     {
       name: 'Abhi shek',
       title: 'Regional Paradigm Technician',
@@ -45,20 +45,76 @@ const people = [
     const [data,setData] = useState([]);
     const [open,setOpen] = useState(false);
     const [num,setNum] = useState(0);
+    const [datas,setdatas]=useState(employee);
+    const [btnVal,setbtnval] = useState('');
 
-    function onEdit(person){
-      setData(person);
-      console.log(person.email);
+    const [emailValue,setEmailValue] =useState('');
+    
+    function onEdit(employee){
+      setData(employee);
+      console.log(employee.email);
       // setisActive(true);
       setOpen(!open);
       // console.log(isActive);
       console.log('open is '+open);
       setNum(num+1);
+
+      setEmailValue(employee.email);
+      console.log(emailValue,'in onEdit Click');
     }
    
+    useState(()=>{
+      // setdatas(employee);
+    },[]);
+
+    function callBackFunc(obj){
+      console.log(obj.name+' '+obj.title+' '+obj.email+' '+obj.department+' '+obj.role);
+      // setbtnval(obj.name+' '+obj.title+' '+obj.email+' '+obj.department+' '+obj.role);
+      setbtnval(obj);
+      
+      var emailID = obj[2];
+      console.log(obj.email);
+
+      var newdata;
+      {obj.map((item)=>{
+        console.log(item);
+      })}
+      datas.map((d)=>{
+          console.log(d.name);
+      });
+      console.log(emailValue,'in Callback Click');
+
+      const newArray = datas.map((data1, index) => {
+
+        if(data1.email === emailValue){
+              data1[index] = {
+                name: obj,
+                title: obj.title,
+                department: obj.department,
+                // status: obj.status,
+                role: obj.role,
+                email: obj.email,
+            };
+        }
+        return data1
+      });
+      var index = datas.findIndex((emp => emp.email== emailValue));
+      console.log('Console inside index:',index);
+
+      datas[index].name = obj[0];
+      datas[index].title = obj[1];
+      datas[index].email = obj[2];
+      datas[index].department = obj[3];
+      datas[index].role = obj[4];
+      
+      console.log(datas);
+      // console.log(newArray);
+      // setdatas(newArray);
+
+    }
+
     return (
       <>
-     
       <div className="flex flex-col mb-7 mx-5">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -96,7 +152,7 @@ const people = [
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {people.map((person) => (
+                  {datas.map((person) => (
                     <tr key={person.email}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -142,8 +198,11 @@ const people = [
 
       {/* <EditModel open={open} setOpen={setOpen} number={num} dataSet={data}/> */}
       
-       <EditMuiModel open={open} setOpen={setOpen} dataSet={data}/>  
+       <EditMuiModel open={open} setOpen={setOpen} dataSet={data} callBackFunc={callBackFunc}/>  
        <Validates/>
+       <button >
+         {btnVal}
+       </button>
       </>
     )
 }
