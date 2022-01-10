@@ -4,6 +4,7 @@ import EditModel from './EditModel';
 import EditMuiModel from './EditMuiModel';
 import Models from './Models';
 import Validates from './MUI/Validates';
+import Validate_Toofani_Code from './MUI/Validate_Toofani_Code';
 import ConfirmationDialog from './MuiModal';
 
 const employee = [
@@ -63,9 +64,9 @@ const employee = [
       console.log(emailValue,'in onEdit Click');
     }
    
-    useState(()=>{
-      // setdatas(employee);
-    },[]);
+    useEffect(()=>{
+      setdatas(employee);
+    },[onEdit]);
 
     function callBackFunc(obj){
       console.log(obj.name+' '+obj.title+' '+obj.email+' '+obj.department+' '+obj.role);
@@ -199,10 +200,15 @@ const employee = [
       {/* <EditModel open={open} setOpen={setOpen} number={num} dataSet={data}/> */}
       
        <EditMuiModel open={open} setOpen={setOpen} dataSet={data} callBackFunc={callBackFunc}/>  
-       <Validates/>
-       <button >
+
+       {/* <Validates dataSet={data}/> */}
+       
+       {/* <button >
          {btnVal}
-       </button>
+       </button> */}
+       
+       {/* <Validate_Toofani_Code/> */}
+       
       </>
     )
 }

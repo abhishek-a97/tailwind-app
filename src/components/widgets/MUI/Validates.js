@@ -18,13 +18,14 @@ const Validates = ({ handleClose }) => {
       <Controller
         name="firstName"
         control={control}
-        defaultValue=""
+        defaultValue="65"
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             label="First Name"
             variant="outlined"
             id="outlined-required"
             value={value}
+            defaultValue={'hello'}
             onChange={onChange}
             error={!!error}
             helperText={error ? error.message : null}
