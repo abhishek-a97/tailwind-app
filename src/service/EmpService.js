@@ -3,7 +3,7 @@ const url = 'https://jsonplaceholder.typicode.com/users';
 
 class EmpService
 { 
-    getFetchData(){
+        getFetchData(){
     //  return fetch(url);          // using fetch()
     return axios.get(url);          //  using axios()
     }
